@@ -5,7 +5,7 @@ Shader "Unlit/FilterfColor"
       Properties { 
         _MainTex ("Base (RGB)", 2D) = "white" {} 
         _FilterfColor("Ridof (RGB)",Color)=(0,0,0,0) 
-        _F("_F",Range(0,10000)) = 1
+        _F("_F",Range(0,1)) = 0.793
     } 
     SubShader { 
         Tags { "RenderType"="Opaque" } 
@@ -59,8 +59,8 @@ Shader "Unlit/FilterfColor"
             float4 fragment_convert(Inputfragment o) : COLOR 
             { 
                 float4 c = tex2D(_MainTex,o.uv); 
-                //这个数值也是醉了，哈哈哈哈哈哈哈
-                c.a *=ColorLerp(c.rgb,_FilterfColor.rgb)*_F*100000*100000*100000*100000*100000*pow(10000,22); 
+                
+                c.a *=ColorLerp(c.rgb,_FilterfColor.rgb)*pow(20* _F ,10); 
                
                 return c; 
             } 
