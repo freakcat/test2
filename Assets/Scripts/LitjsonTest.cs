@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
+using Newtonsoft.Json.Converters;
+using Newtonsoft;
+using Newtonsoft.Json;
 
 public class JA
 {
@@ -22,8 +25,7 @@ public class LitjsonTest : MonoBehaviour
                         }
                         ";
 
-        #region 正常读写测试 
-
+        #region 正常读写测试
 //------------------------通过申明类转换实例
         var jaobj = JsonMapper.ToObject<JA>(jsona);
         print(jaobj.aa);
