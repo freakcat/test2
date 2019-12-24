@@ -5,6 +5,7 @@ using LitJson;
 using Newtonsoft.Json.Converters;
 using Newtonsoft;
 using Newtonsoft.Json;
+using HouYou;
 
 public class JA
 {
@@ -15,8 +16,106 @@ public class JA
 
 public class LitjsonTest : MonoBehaviour
 {
-    // Start is called before the first frame update
+ 
+    //创建数据库
+    public  static SufferBd _sufferBd = new SufferBd();
+ 
     void Start()
+    {
+  
+    }
+ 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Train train = new Train();
+            train.Id = 333;
+            train.TrainName = "仰卧起坐";
+            var message = ControlBD.AddTrain(ControlBD.Suffers()[0], train);
+             
+            print(message); 
+        }
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Train train = new Train();
+            train.Id = 333;
+            train.TrainName = "仰卧起坐";
+            var message = ControlBD.RemoveTrain(train);
+            print(message); 
+        }
+        
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Train train = new Train();
+            train.Id = 333;
+            train.TrainName = "仰卧起坐";
+            var message = ControlBD.HasTrain(train);
+            print(message); 
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            var  mybd = ControlBD.PushSufferBD();
+            User mary = new User();
+            print(mybd.ToJson());
+          
+        }
+        
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            var  mybd = ControlBD.SaveBD();
+          
+            print(mybd);
+            
+        }
+    }
+
+    private void TestNewJson()
+    {
+        //往表中添加数据
+        Suffer mary = new Suffer();
+        mary.Id = 0;
+        mary.Name = "mary";
+        Suffer mary1 = new Suffer();
+        mary1.Id = 1;
+        mary1.Name = "mary1";
+        Suffer mary2 = new Suffer();
+        mary2.Id = 2;
+        mary2.Name = "mary2";
+        Suffer mary3 = new Suffer();
+        mary3.Id = 3;
+        mary3.Name = "mary3";
+        _sufferBd.Sufferble.Suffer.Add(mary);
+        _sufferBd.Sufferble.Suffer.Add(mary1);
+        _sufferBd.Sufferble.Suffer.Add(mary2);
+        _sufferBd.Sufferble.Suffer.Add(mary3);
+        
+        Estima estima = new Estima();
+        estima.Id = 5;
+        estima.EstimaName = "xxxx";
+        Estima estima1 = new Estima();
+        estima1.Id = 121;
+        estima1.EstimaName = "xxxx2";
+        Estima estima2 = new Estima();
+        estima2.EstimaName = "xxxxxs";
+        estima2.Id = 2;
+        _sufferBd.Estimateble.Estima.Add(estima);
+        _sufferBd.Estimateble.Estima.Add(estima1);
+        _sufferBd.Estimateble.Estima.Add(estima2);
+        
+        Train train = new Train();
+        train.Id = 2;
+        Train train1 = new Train();
+        train1.Id = 1;
+ 
+        _sufferBd.Trainble.Train.Add(train);
+        _sufferBd.Trainble.Train.Add(train1);
+ 
+        print(_sufferBd.ToJson());
+    }
+    private void TestlitJson_unityJson()
     {
         string jsona = @"
                         {
@@ -26,6 +125,7 @@ public class LitjsonTest : MonoBehaviour
                         ";
 
         #region 正常读写测试
+
 //------------------------通过申明类转换实例
         var jaobj = JsonMapper.ToObject<JA>(jsona);
         print(jaobj.aa);
@@ -73,26 +173,17 @@ public class LitjsonTest : MonoBehaviour
 
 
         #region 字典测试
- 
+
         #endregion
 
 
         #region 列表测试
-
-        
 
         #endregion
 
 
         #region 其他测试
 
-        
-
         #endregion
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

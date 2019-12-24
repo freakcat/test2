@@ -66,6 +66,7 @@ public class NetTest : MonoBehaviour
         {
             if (client.Connected)
             {
+                IsClose = true;
                 client.Close();
                 client.Dispose();   
             }
