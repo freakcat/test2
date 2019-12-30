@@ -51,6 +51,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using UnityEngine;
 using MySql.Data;
 using MySql.Data.MySqlClient;
@@ -67,6 +69,7 @@ public class CtrlMySql : MonoBehaviour
     {
         try
         {
+ 
             com = new MySqlConnection();
             com.ConnectionString = ConnectionString;
             com.Open();
@@ -77,7 +80,16 @@ public class CtrlMySql : MonoBehaviour
             print(com.Database);
 
             MySqlDataReader a = command.ExecuteReader();
-            print(a.GetSchemaTable().Rows.Count);
+            foreach (DataRow r in a.GetSchemaTable().Rows)
+            {
+                foreach (var VARIABLE in r.ItemArray)
+                {
+                    print(  VARIABLE+":" + r[1]);
+
+                }
+               
+            }
+          
         }
         catch (Exception e)
         {
@@ -90,5 +102,48 @@ public class CtrlMySql : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+}
+
+public sealed class SqlConnection : System.Data.Common.DbConnection, ICloneable, IDisposable
+{
+    public SqlConnection(string connectionString)
+    {
+        
+    }
+    protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void ChangeDatabase(string databaseName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Close()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Open()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override string ConnectionString { get; set; }
+    public override string Database { get; }
+    public override ConnectionState State { get; }
+    public override string DataSource { get; }
+    public override string ServerVersion { get; }
+
+    protected override DbCommand CreateDbCommand()
+    {
+        throw new NotImplementedException();
+    }
+
+    public object Clone()
+    {
+        throw new NotImplementedException();
     }
 }
