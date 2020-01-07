@@ -515,6 +515,8 @@ namespace DigitalRuby.WeatherMaker
         public static void GenerateFramesAnd3DTexture(WeatherMakerCloudNoiseProfileGroupScript noiseProfile, Material[] materials, string textureAssetFileName, bool showConfirm = false)
         {
             string tempPath = Path.GetTempPath();
+            print(tempPath);
+            return;
             tempPath = System.IO.Path.Combine(tempPath, "WeatherMakerNoiseTexture");
             string texturesPath = WeatherMakerCloudNoiseGeneratorScript.GenerateFrameTextures(noiseProfile, materials, 0.0f, 0.5f, false);
             WeatherMakerCloudNoiseGeneratorScript.Generate3DTexture(texturesPath, textureAssetFileName, noiseProfile.FilterMode, noiseProfile.GenerateMips, progress: 0.5f, progressMultiplier: 0.5f);

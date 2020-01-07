@@ -17,6 +17,7 @@ public class Login : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+         
         inputname = transform.Find("InputFieldName").GetComponent<InputField>();
         print(inputname.name);
         inputpassword = transform.Find("InputFieldPassword").GetComponent<InputField>();
